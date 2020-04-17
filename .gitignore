@@ -1,0 +1,16 @@
+# nodejs files
+node_modules/
+
+# logs
+.log/
+*.log
+
+# other file types
+.DS_Store
+
+# ignore generated JS files
+**/*.js
+**/*.js.map
+
+# environment variable file
+.env

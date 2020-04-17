@@ -1,0 +1,30 @@
+{
+  "name": "kudocoin-bot",
+  "version": "0.0.1",
+  "description": "A bot that give others kudos from you",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "yarn test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zheli/kudocoin-bot.git"
+  },
+  "keywords": [
+    "slack",
+    "bot"
+  ],
+  "author": "Zhe Li <linuxcity.jn@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zheli/kudocoin-bot/issues"
+  },
+  "homepage": "https://github.com/zheli/kudocoin-bot#readme",
+  "devDependencies": {
+    "@google-cloud/functions-framework": "^1.5.1",
+    "@types/express": "^4.17.2",
+    "tslint": "^6.1.1",
+    "typescript": "^3.8.3"
+  },
+  "private": true
+}
