@@ -1,6 +1,16 @@
 "use strict";
 
-function getTransaction(match, req) {
+type Transaction = {
+  amount: number;
+  receiverId: string;
+  receiverName: string;
+  senderId: string;
+  reason: string;
+  emoji: string;
+  at: Date;
+}
+
+function getTransaction(match, req): Transaction {
   const at = new Date;
 
   try {
@@ -20,14 +30,11 @@ function getTransaction(match, req) {
 }
 
 export async function handleGiveHttp(req, res) {
-  const reg = /(\d+) :(.+): to <@(.+)\|(.+)> for (.*)/;
+  // command text: <amount> <emoji> to <someone> <reason>
+  const reg = /(\d+)\s:(.+):\sto\s<@(.+)\|(.+)>\sfor\s(.*)/;
   const match = reg.exec(req.body.text);
-  console.log("body");
-  console.log(req.body);
-  console.log("match");
-  console.log(match);
+  console.log("Request body: ", JSON.stringify(req.body));
 
-  const at = new Date;
   const transaction = getTransaction(match, req);
   if (!transaction) {
     res.send({
@@ -36,12 +43,11 @@ export async function handleGiveHttp(req, res) {
     })
     return;
   } else {
-    console.log(transaction||"undefined transaction");
+    console.log("Generate transaction: ", JSON.stringify(transaction));
 
     res.send({
       response_type: 'in_channel',
-      // text: `Ok, I've transferred ${transaction.amount} :${transaction.emoji}: to ${transaction.receiverName}. Showing your appreciation is #caring! :heart:`
-      text: 'This is a test'
+      text: `Ok, I've transferred ${transaction.amount} :${transaction.emoji}: to ${transaction.receiverName}. Showing your appreciation is #caring! :heart:`
     });
   }
 
