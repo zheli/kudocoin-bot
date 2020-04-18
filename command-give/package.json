@@ -3,8 +3,18 @@
   "version": "0.0.1",
   "description": "A bot that give others kudos from you",
   "main": "lib/index.js",
+  "config": {
+    "FUNCTION_NAME": "handleGiveHttp",
+    "FUNCTION_SERVICE_ACCOUNT": "scc-test@scc-test-20200414.iam.gserviceaccount.com"
+  },
   "scripts": {
-    "test": "yarn test"
+    "test": "yarn test",
+    "build": "./node_modules/.bin/tslint -p tslint.json && ./node_modules/.bin/tsc",
+    "watch": "./node_modules/.bin/tsc --watch",
+    "start": "yarn run build && ./node_modules/.bin/functions-framework --target=$npm_package_config_FUNCTION_NAME",
+    "deploy": "yarn run build && gcloud --project $GCLOUD_PROJECT functions deploy $npm_package_config_FUNCTION_NAME --trigger-http --runtime nodejs10 --region $GCLOUD_REGION",
+    "deploy2": "yarn run build && gcloud --project $npm_package_config_GCP_PROJECT functions deploy $npm_package_config_FUNCTION_NAME --trigger-http --runtime nodejs10 --region $npm_package_config_GCP_REGION --service-account $npm_package_config_FUNCTION_SERVICE_ACCOUNT --set-env-vars=OPSGENIE_API_KEY=$OPSGENIE_API_KEY",
+    "destroy": "gcloud --project $npm_package_config_GCP_PROJECT functions delete $npm_package_config_FUNCTION_NAME --region $npm_package_config_GCP_REGION"
   },
   "repository": {
     "type": "git",
