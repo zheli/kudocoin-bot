@@ -1,6 +1,6 @@
-import {storeTransaction, Transaction} from './storage';
+import {storeTransaction, IncomingTransaction, updateWalletEmoji} from './storage';
 
-function parseTransaction(match, req): Transaction {
+function parseTransaction(match, req): IncomingTransaction {
   const at = new Date;
 
   try {
@@ -36,6 +36,7 @@ export async function handleGiveHttp(req, res) {
     console.log("Generate transaction: ", JSON.stringify(transaction));
     try {
       await storeTransaction(transaction);
+      await updateWalletEmoji(transaction.receiverId, transaction.emoji, transaction.amount);
     } catch(e) {
       console.error(e);
     }
