@@ -39,7 +39,7 @@ export async function handleGiveHttp(req, res) {
   if (!transaction) {
     res.send({
       response_type: 'in_channel',
-      text: 'Something went wrong'
+      text: 'Try send "/give 10 :knife: to @zhe for creating bugs"'
     })
     return;
   } else {
