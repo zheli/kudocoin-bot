@@ -8,6 +8,7 @@
     "outDir": "lib",
     "sourceMap": true,
     "target": "es2017",
+    "alwaysStrict": true,
     "typeRoots": [
       "node_modules/@types"
     ]
