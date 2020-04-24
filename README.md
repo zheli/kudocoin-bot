@@ -6,5 +6,8 @@ Create a service account in GCP with permission to deploy cloud function and cop
 
 Run `yarn deploy`.
 
+# Develop locally
+Run `yarn watch` and send request using a template like `mockRequest.json`.
+
 # Debug
 Run `yarn start` and then run `ngrok http 8080`, set the Request URL to the ngrok address.
