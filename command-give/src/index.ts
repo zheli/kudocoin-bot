@@ -1,14 +1,4 @@
-"use strict";
-
-type Transaction = {
-  amount: number;
-  receiverId: string;
-  receiverName: string;
-  senderId: string;
-  reason: string;
-  emoji: string;
-  at: Date;
-}
+import {storeTransaction, Transaction} from './storage';
 
 function getTransaction(match, req): Transaction {
   const at = new Date;
