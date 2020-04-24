@@ -1,6 +1,6 @@
 import {storeTransaction, Transaction} from './storage';
 
-function getTransaction(match, req): Transaction {
+function parseTransaction(match, req): Transaction {
   const at = new Date;
 
   try {
@@ -23,9 +23,9 @@ export async function handleGiveHttp(req, res) {
   // command text: <amount> <emoji> to <someone> <reason>
   const reg = /(\d+)\s:(.+):\sto\s<@(.+)\|(.+)>\sfor\s(.*)/;
   const match = reg.exec(req.body.text);
-  console.log("Request body: ", JSON.stringify(req.body));
+  console.log("Request body:", JSON.stringify(req.body));
 
-  const transaction = getTransaction(match, req);
+  const transaction = parseTransaction(match, req);
   if (!transaction) {
     res.send({
       response_type: 'in_channel',
@@ -34,6 +34,11 @@ export async function handleGiveHttp(req, res) {
     return;
   } else {
     console.log("Generate transaction: ", JSON.stringify(transaction));
+    try {
+      await storeTransaction(transaction);
+    } catch(e) {
+      console.error(e);
+    }
 
     res.send({
       response_type: 'in_channel',
